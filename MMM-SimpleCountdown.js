@@ -51,7 +51,11 @@ Module.register("MMM-SimpleCountdown", {
 
         var today = moment().hour(0).minute(0).second(0);
 
-        self.config.dates.forEach(d => {
+	let datearray = this.config.dates;
+
+	Log.info(datearray);
+
+        datearray.forEach(d => {
             // Create wrappers
             var dateWrapper = document.createElement("div");
             var titleWrapper = document.createElement("div");
