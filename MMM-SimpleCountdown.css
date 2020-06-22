@@ -1,29 +1,20 @@
 /*
- *
- * MMM-SimpleCountdown
- *
- * By Andy Briggs https://github.com/pharmot
- * MIT Licensed.
- *
- *
- */
- 
- .MMM-SimpleCountdown-wrapper {
-   display: inline-flex;
-   flex-flow:column nowrap;
- }
- .MMM-SimpleCountdown-wrapper > * {
-   display:flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items:center;
- }
- .MMM-SimpleCountdown-date {
-   margin-bottom:10px;
- }
- .MMM-SimpleCountdown-date:last-child {
-   margin-bottom:0;
- }
- .MMM-SimpleCountdown-date > * {
-   padding: 0.2em 0.4em;
- }
+*
+* MMM-SimpleCountdown
+*
+* By Andy Briggs https://github.com/pharmot
+* MIT Licensed.
+*
+*
+*/
+.MMM-SimpleCountdown-date {
+  margin-bottom: 10px;
+}
+
+.MMM-SimpleCountdown-date:last-child {
+  margin-bottom: 0;
+}
+
+.MMM-SimpleCountdown-date > * {
+  padding: 0.2em 0.4em;
+}
