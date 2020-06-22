@@ -48,14 +48,11 @@ Module.register("MMM-SimpleCountdown", {
 
         // create element wrapper
         var wrapper = document.createElement("div");
+        wrapper.className = "MMM-SimpleCountdown-wrapper";
 
         var today = moment().hour(0).minute(0).second(0);
 
-	let datearray = this.config.dates;
-
-	Log.info(datearray);
-
-        datearray.forEach(d => {
+        self.config.dates.forEach(d => {
             // Create wrappers
             var dateWrapper = document.createElement("div");
             var titleWrapper = document.createElement("div");
@@ -63,8 +60,8 @@ Module.register("MMM-SimpleCountdown", {
 
             // Style Wrappers
             dateWrapper.className = "MMM-SimpleCountdown-date";
-            titleWrapper.className = "MMM-SimpleCountdown-title normal medium";
-            periodWrapper.className = "MMM-SimpleCountdown-period time bright large";
+            titleWrapper.className = "MMM-SimpleCountdown-title normal small";
+            periodWrapper.className = "MMM-SimpleCountdown-period time bright medium";
 
             titleWrapper.innerHTML = d.title;
 
