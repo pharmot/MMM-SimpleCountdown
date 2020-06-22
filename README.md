@@ -27,7 +27,7 @@ Add the module to the modules array in the `config/config.js` file:
 
 | **Option**    | **Description** |
 |-------------- | ---------------- |
-| `dates`       | *Required* An array of dates to display.  See [Date Object](#date-obkect) |
+| `dates`       | *Required* An array of dates to display.  See [Date Object](#date-object) |
 
 #### Date Object
 
