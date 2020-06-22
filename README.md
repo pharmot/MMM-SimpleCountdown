@@ -25,9 +25,10 @@ Add the module to the modules array in the `config/config.js` file:
 
 ## Configuration options
 
-| **Option**    | **Description** |
-|-------------- | ---------------- |
-| `dates`       | *Required* An array of dates to display.  See [Date Object](#date-object) |
+| **Option**       | **Description**                      |
+|----------------- | ------------------------------------ |
+| `updateInterval` | *Optional* How often to update (in ms).<br>**Default:** `30*60*1000` (30 minutes) |
+| `dates`          | *Required* An array of dates to display.  See [Date Object](#date-object) |
 
 #### Date Object
 
