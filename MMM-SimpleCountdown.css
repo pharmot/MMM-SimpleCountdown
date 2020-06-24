@@ -1,20 +1,60 @@
 /*
-*
 * MMM-SimpleCountdown
 *
 * By Andy Briggs https://github.com/pharmot
 * MIT Licensed.
 *
-*
 */
-.MMM-SimpleCountdown-date {
-  margin-bottom: 10px;
+.scd_date {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.MMM-SimpleCountdown-date:last-child {
-  margin-bottom: 0;
+.scd_date:last-child {
+    margin-bottom: 0;
 }
 
-.MMM-SimpleCountdown-date > * {
-  padding: 0.2em 0.4em;
+.scd_date__title {
+    color: #999;
+    font-size: 20px;
+    line-height: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom: 1px solid #666;
+}
+
+.scd_date--passed .scd_date__title {
+    color: #666;
+}
+
+.scd_date__period {
+    color: #fff;
+    font-size: 30px;
+    line-height: 35px;
+}
+
+.scd_date--passed .scd_date__period {
+    color: #999;
+}
+
+.scd_wrapper--small .scd_date__title {
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.scd_wrapper--small .scd_date__period {
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.scd_wrapper--large .scd_date__title {
+    font-size: 30px;
+    line-height: 35px;
+}
+
+.scd_wrapper--large .scd_date__period {
+    font-size: 65px;
+    line-height: 65px;
 }

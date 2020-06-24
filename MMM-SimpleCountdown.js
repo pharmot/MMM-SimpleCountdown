@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 /* Magic Mirror
 * Module: MMM-SimpleCountdown
 *
@@ -9,6 +10,8 @@ Module.register("MMM-SimpleCountdown", {
     // Module config defaults.
     defaults: {
         updateInterval: 30*60*1000,
+        size: "medium",
+        showPastDates: false,
         dates: [
             {
                 title: "Election Day",
@@ -38,17 +41,21 @@ Module.register("MMM-SimpleCountdown", {
         var self = this;
 
         setInterval(function() {
-            self.updateDom()
+            self.updateDom();
         }, self.config.updateInterval);
     },
 
     getDom: function() {
 
-        // TODO: check for presence of dates, return message if none present
-
         // create element wrapper
         var wrapper = document.createElement("div");
-        wrapper.className = "MMM-SimpleCountdown-wrapper";
+
+        let theSize = this.config.size;
+        if( ! ( this.config.size === "small" || this.config.size === "large" ) ) {
+            theSize = "medium";
+        }
+
+        wrapper.className = `scd_wrapper scd_wrapper--${theSize}`;
 
         var today = moment().hour(0).minute(0).second(0);
 
@@ -59,22 +66,24 @@ Module.register("MMM-SimpleCountdown", {
             var periodWrapper = document.createElement("div");
 
             // Style Wrappers
-            dateWrapper.className = "MMM-SimpleCountdown-date";
-            titleWrapper.className = "MMM-SimpleCountdown-title normal small";
-            periodWrapper.className = "MMM-SimpleCountdown-period time bright medium";
+            dateWrapper.className = "scd_date";
+            titleWrapper.className = "scd_date__title";
+            periodWrapper.className = "scd_date__period";
 
             titleWrapper.innerHTML = d.title;
 
-            let periodText = "";
 
             let starting = today.clone();
 
             let target = moment(d.date + "00:00:00", "YYYY-MM-DD HH:mm:ss");
 
             let direction = 1;
+
             if (target.diff(starting) < 0) {
                 direction = -1;
             }
+
+            let periodText = "";
 
             if ( d.display === 'months' ) {
                 let months = target.diff(starting, 'months') * direction;
@@ -88,7 +97,7 @@ Module.register("MMM-SimpleCountdown", {
                 let weeks = target.diff(starting, 'weeks') * direction;
                 if ( weeks > 0 ) {
                     if ( periodText !== "" ) {
-                        periodText += ", "
+                        periodText += ", ";
                     }
                     periodText += weeks;
                     periodText += weeks > 1 ? " weeks" : " week";
@@ -99,20 +108,23 @@ Module.register("MMM-SimpleCountdown", {
             let days = target.diff(starting, 'days') * direction;
             if ( days > 0 ) {
                 if ( periodText !== "" ) {
-                    periodText += ", "
+                    periodText += ", ";
                 }
                 periodText += days;
                 periodText += days > 1 ? " days" : " day";
             }
             if(direction < 0 ) {
                 periodText += " ago";
-                dateWrapper.className += " passed"
+                dateWrapper.className += " scd_date--passed";
             }
             periodWrapper.innerHTML = periodText;
 
-            dateWrapper.appendChild(titleWrapper);
-            dateWrapper.appendChild(periodWrapper);
-            wrapper.appendChild(dateWrapper);
+            if ( direction > 0 || this.config.showPastDates ) {
+                dateWrapper.appendChild(titleWrapper);
+                dateWrapper.appendChild(periodWrapper);
+                wrapper.appendChild(dateWrapper);
+            }
+
         });
         return wrapper;
     }
