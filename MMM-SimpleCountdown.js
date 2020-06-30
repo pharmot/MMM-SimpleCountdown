@@ -1,6 +1,7 @@
 /* jshint esversion: 6 */
 /* Magic Mirror
 * Module: MMM-SimpleCountdown
+* Version: 1.0.0
 *
 * By Andy Briggs https://github.com/pharmot
 * MIT Licensed
@@ -72,10 +73,12 @@ Module.register("MMM-SimpleCountdown", {
 
             titleWrapper.innerHTML = d.title;
 
-
             let starting = today.clone();
 
             let target = moment(d.date + "00:00:00", "YYYY-MM-DD HH:mm:ss");
+
+            //add 1 day so difference will round up to nearest whole day
+            target.add(1, 'days');
 
             let direction = 1;
 
@@ -119,7 +122,7 @@ Module.register("MMM-SimpleCountdown", {
             }
             periodWrapper.innerHTML = periodText;
 
-            if ( direction > 0 || this.config.showPastDates ) {
+            if ( direction >= 0 || this.config.showPastDates ) {
                 dateWrapper.appendChild(titleWrapper);
                 dateWrapper.appendChild(periodWrapper);
                 wrapper.appendChild(dateWrapper);

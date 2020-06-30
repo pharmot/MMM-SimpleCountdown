@@ -1,6 +1,8 @@
 # MMM-SimpleCountdown
 
-This is a module for [MagicMirror²](https://github.com/MichMich/MagicMirror/) that displays a countdown to a preselected date or dates.
+This is a module for [MagicMirror²](https://github.com/MichMich/MagicMirror/) that displays a countdown to a specified date or dates.
+
+![Screenshot](images/screenshot.png?raw=true "Screenshot")
 
 ## Installation
 
@@ -25,20 +27,20 @@ Add the module to the modules array in the `config/config.js` file:
 
 ## Configuration options
 
-| **Option**       | **Description**                      |
-|----------------- | ------------------------------------ |
-| `updateInterval`<br><br>*Optional*| How often to update (in ms).<br><br>**Default:** `30*60*1000` (30 minutes) |
-| `size`<br><br>*Optional*          | Change font size of countdown.  Possible values are `"large"` and `"small"` <br><br> **Default value:** `""` (medium font size) |
-| `showPastDates`<br><br>*Optional | By default, past dates are hidden.  Set to `true` to show elapsed time since dates that have passed. |
-| `dates`<br><br>*Required*          | An array of dates to display.  <br><br>See [Date Object](#date-object) |
+| **Option**       | **Description**                                                                          | **Default**               |
+|----------------- | ---------------------------------------------------------------------------------------- | ------------------------- |
+| `updateInterval` | How often to update (in ms).                                                             | `30*60*1000` (30 minutes) |
+| `size`           | Change font size of countdown.  Possible values are `"small"`, `"medium"`, and `"large"` | `"medium"`                |
+| `showPastDates`  | Set to `true` to show elapsed time since dates that have passed.                         | `false`                   |
+| `dates`          | An array of dates to display. See [Date Object](#date-object).                           | *N/A*                     |
 
 #### Date Object
 
-| **Key** | **Description** |
-| ------- | --------------- |
-| `title`<br><br>*Required* | The title of the date.<br><br>**Example:** `"Election Day"` |
-| `date`<br><br>*Required* | The date, as a string, formatted as: YYYY-MM-DD.<br><br>**Example:** `"2020-11-03"` |
-| `display`<br><br>*Optional* | The largest time unit to display.  Possible values are `"days"`, `"weeks"`, and `"months"`. <br><br>**Default value:** `"days"` | `"days"` |
+| **Key**   | **Description**                                                                | **Example**             |
+| --------- | ------------------------------------------------------------------------------ | ----------------------- |
+| `title`   | The title of the date. *(Required)*                                            | `"Election Day"`        |
+| `date`    | The date, as a string, formatted as: YYYY-MM-DD. *(Required)*                  | `"2020-11-03"`          |
+| `display` | The largest time unit to display. *(Optional)* <br>**Default value:** `"days"` | `"weeks"`<br>`"months"` |
 
 ### Example configuration
 
@@ -75,3 +77,19 @@ git pull
 
 If you haven't changed the module, this should work without any problems.
 Type `git status` to see your changes, if there are any, you can reset them with `git reset --hard`. After that, git pull should be possible.
+
+## Display Sizes
+
+### Default
+
+(with `showPastDates` set to `true`)
+
+![Medium Size](images/medium.png?raw=true "Medium Size")
+
+### Small
+
+![Small Size](images/small.png?raw=true "Small Size")
+
+### Large
+
+![Large Size](images/large.png?raw=true "Large Size")
