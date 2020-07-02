@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 /* Magic Mirror
 * Module: MMM-SimpleCountdown
 * Version: 1.0.0
@@ -61,71 +60,90 @@ Module.register("MMM-SimpleCountdown", {
         var today = moment().hour(0).minute(0).second(0);
 
         this.config.dates.forEach(d => {
-            // Create wrappers
-            var dateWrapper = document.createElement("div");
-            var titleWrapper = document.createElement("div");
-            var periodWrapper = document.createElement("div");
-
-            // Style Wrappers
-            dateWrapper.className = "scd_date";
-            titleWrapper.className = "scd_date__title";
-            periodWrapper.className = "scd_date__period";
-
-            titleWrapper.innerHTML = d.title;
-
-            let starting = today.clone();
 
             let target = moment(d.date + "00:00:00", "YYYY-MM-DD HH:mm:ss");
+
+            let titleText = "";
+
+            if ( d.title ) {
+                titleText = d.title;
+            } else {
+                titleText = target.format("MMMM D, YYYY");
+            }
+
+            let starting = today.clone();
+            let direction = 1;
 
             //add 1 day so difference will round up to nearest whole day
             target.add(1, 'days');
 
-            let direction = 1;
-
+            //set direction to -1 if the target date has passed
             if (target.diff(starting) < 0) {
                 direction = -1;
             }
 
-            let periodText = "";
+            // continue only if not passed or showPastDates is true
+            if ( direction >= 0 || this.config.showPastDates ) {
 
-            if ( d.display === 'months' ) {
-                let months = target.diff(starting, 'months') * direction;
-                if( months > 0 ) {
-                    periodText += months;
-                    periodText += months > 0 ? " months" : " month";
-                    starting.add(months * direction, "M");
+                // Create wrappers
+                var dateWrapper = document.createElement("div");
+                var titleWrapper = document.createElement("div");
+                var periodWrapper = document.createElement("div");
+
+                // Style Wrappers
+                dateWrapper.className = "scd_date";
+                titleWrapper.className = "scd_date__title";
+                periodWrapper.className = "scd_date__period";
+
+                // Add title to titleWrapper
+                titleWrapper.innerHTML = titleText;
+
+                let periodText = "";
+
+                if ( d.display === 'months' ) {
+                    let months = target.diff(starting, 'months') * direction;
+                    if( months > 0 ) {
+                        periodText += months;
+                        periodText += months > 0 ? " months" : " month";
+                        starting.add(months * direction, "M");
+                    }
                 }
-            }
-            if ( d.display === 'months' || d.display === 'weeks' ) {
-                let weeks = target.diff(starting, 'weeks') * direction;
-                if ( weeks > 0 ) {
+
+                if ( d.display === 'months' || d.display === 'weeks' ) {
+                    let weeks = target.diff(starting, 'weeks') * direction;
+                    if ( weeks > 0 ) {
+                        if ( periodText !== "" ) {
+                            periodText += ", ";
+                        }
+                        periodText += weeks;
+                        periodText += weeks > 1 ? " weeks" : " week";
+                        starting.add(weeks * direction, "w");
+
+                    }
+                }
+
+                let days = target.diff(starting, 'days') * direction;
+                if ( days > 0 ) {
                     if ( periodText !== "" ) {
                         periodText += ", ";
                     }
-                    periodText += weeks;
-                    periodText += weeks > 1 ? " weeks" : " week";
-                    starting.add(weeks * direction, "w");
-
+                    periodText += days;
+                    periodText += days > 1 ? " days" : " day";
                 }
-            }
-            let days = target.diff(starting, 'days') * direction;
-            if ( days > 0 ) {
-                if ( periodText !== "" ) {
-                    periodText += ", ";
-                }
-                periodText += days;
-                periodText += days > 1 ? " days" : " day";
-            }
-            if(direction < 0 ) {
-                periodText += " ago";
-                dateWrapper.className += " scd_date--passed";
-            }
-            periodWrapper.innerHTML = periodText;
 
-            if ( direction >= 0 || this.config.showPastDates ) {
+                if ( direction < 0 ) {
+                    periodText += " ago";
+                    dateWrapper.className += " scd_date--passed";
+                }
+
+                periodWrapper.innerHTML = periodText;
+
                 dateWrapper.appendChild(titleWrapper);
+
                 dateWrapper.appendChild(periodWrapper);
+
                 wrapper.appendChild(dateWrapper);
+
             }
 
         });

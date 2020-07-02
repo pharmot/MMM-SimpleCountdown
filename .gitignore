@@ -1,2 +1,3 @@
 .stylelintrc
+.jshintrc
 *.scss
